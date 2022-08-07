@@ -1,0 +1,57 @@
+syntax = "proto3";
+package protocol.protobuf;
+
+option java_package = "xyz.izgnod.iim.gate.protocol.protobuf";
+option java_outer_classname = "HttpMessage";
+
+
+message HttpRequest {
+
+    string url = 1; //请求url
+    Method method = 2; //请求方法
+    Headers headers = 3; //请求头
+    FormBody formBody = 4; //表单提交 application/x-www-form-urlencoded
+    JsonBody jsonBody = 5; //json提交 application/json
+    string requestId = 6; //请求id，用于监控请求，每次生成一个
+
+    //支持的请求方法
+    enum Method {
+
+        GET = 0;
+        POST = 1;
+        PUT = 2;
+        DELETE = 3;
+    }
+
+    message FormBody {
+        repeated NameAndValue nameAndValue = 1;
+    }
+
+    message JsonBody {
+        string json = 1; //传递json字符串
+    }
+}
+
+message HttpResponse {
+
+    int32 code = 1; //http的返回码
+    Headers headers = 2; //响应头
+    ResponseBody responseBody = 3; //响应body
+    int64 proxyTimeMillis = 4; //代理http请求花费的时间，毫秒
+    int64 totalTimeMillis = 5; //服务端处理消耗的总时间，毫秒
+
+    message ResponseBody {
+        string content = 1; //服务端的返回数据，看具体情况，大部分是json
+    }
+}
+
+//请求头和响应头
+message Headers {
+    repeated NameAndValue nameAndValue = 1;
+}
+
+//传参使用
+message NameAndValue {
+    string name = 1;
+    string value = 2;
+}

@@ -1,0 +1,37 @@
+syntax = "proto3";
+package protocol.protobuf;
+
+option java_package = "xyz.izgnod.iim.gate.protocol.protobuf";
+option java_outer_classname = "Auth";
+
+message AuthRequest {
+
+    string uid = 1; //用户id
+    int32 domain = 2; //用户所属类别，0-员工（呱呱）
+    string token = 3; //用户token
+    int32 clientType = 4; //IOS/Android/Web/Wap
+    string guid = 5; //app重新安装会变，web端怎么变？
+    string appId = 6; //标识哪个应用
+    int64 timestamp = 7; //发包时间戳
+    string secret = 8; //加密密钥，16位随机数，包含大小写字母和数字
+    string clientVersion = 9; //客户端版本号
+    string clientSystemVersion = 10; //客户端系统版本号
+    string clientModel = 11; //客户端机型
+    string traceIdSalt = 12; //监控使用，每次生成一个新的
+    string sessionId = 13; //用于断线重连
+    string extra = 14; //扩展字段，json字符串
+}
+
+message AuthResponse {
+    //状态枚举
+    enum Status {
+        OK = 0;
+        ERR = -1;
+    }
+    int32 status = 1; //状态，使用枚举
+    int32 code = 2; //状态码，统一定义的错误码
+    string msg = 3; //状态描述
+    int64 timestamp = 4; //响应时间戳
+    string sessionId = 5; //用于断线重连
+    string extra = 6; //扩展字段，json字符串
+}

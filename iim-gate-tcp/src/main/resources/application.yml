@@ -1,0 +1,44 @@
+spring:
+  #  profiles:
+  #激活指定的配置文件
+  #    active: dev
+  application:
+    #项目名
+    name: im-gate-tcp
+#  #redis通用配置
+#  redis:
+#    timeout: 2000ms
+#    jedis:
+#      pool:
+#        max-active: 100
+#        max-idle: 50
+#        min-idle: 5
+#        max-wait: 1000ms
+
+#tomcat
+server:
+  port: 8180
+
+
+#配置监控
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: info,health,prometheus
+#      base-path: /
+#      path-mapping:
+#        prometheus: metrics
+
+#基本配置
+iim-gate-tcp:
+  server:
+    # 启动端口
+    port: 8900
+    #可接受的最大包
+    frameMaxLength: 8192
+    #netty 读超时
+    readTimeoutSeconds: 630
+    #netty限速
+    rateLimitPerSecond: 30
+    expire-seconds: 630

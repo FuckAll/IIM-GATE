@@ -1,0 +1,15 @@
+syntax = "proto3";
+package protocol.protobuf;
+
+import "google/protobuf/any.proto";
+
+option java_package = "xyz.izgnod.iim.gate.protocol.protobuf";
+option java_outer_classname = "Message";
+
+
+message Response {
+
+    int32 code = 1;//返回code
+    string msg = 2;//返回message
+    google.protobuf.Any data = 3;
+}

@@ -1,0 +1,43 @@
+{
+  "groups": [
+    {
+      "name": "iim-gate-tcp.server",
+      "type": "xyz.izgnod.iim.gate.tcp.config.ServerProperties",
+      "sourceType": "xyz.izgnod.iim.gate.tcp.config.ServerProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "iim-gate-tcp.server.benchmark",
+      "type": "java.lang.Boolean",
+      "sourceType": "xyz.izgnod.iim.gate.tcp.config.ServerProperties"
+    },
+    {
+      "name": "iim-gate-tcp.server.expire-seconds",
+      "type": "java.lang.Integer",
+      "sourceType": "xyz.izgnod.iim.gate.tcp.config.ServerProperties"
+    },
+    {
+      "name": "iim-gate-tcp.server.frame-max-length",
+      "type": "java.lang.Integer",
+      "description": "最大帧",
+      "sourceType": "xyz.izgnod.iim.gate.tcp.config.ServerProperties"
+    },
+    {
+      "name": "iim-gate-tcp.server.port",
+      "type": "java.lang.Integer",
+      "sourceType": "xyz.izgnod.iim.gate.tcp.config.ServerProperties"
+    },
+    {
+      "name": "iim-gate-tcp.server.rate-limit-per-second",
+      "type": "java.lang.Integer",
+      "sourceType": "xyz.izgnod.iim.gate.tcp.config.ServerProperties"
+    },
+    {
+      "name": "iim-gate-tcp.server.read-timeout-seconds",
+      "type": "java.lang.Integer",
+      "sourceType": "xyz.izgnod.iim.gate.tcp.config.ServerProperties"
+    }
+  ],
+  "hints": []
+}
