@@ -3,8 +3,10 @@ package xyz.izgnod.iim.gate.tcp.cmd;
 
 import org.springframework.stereotype.Component;
 import xyz.izgnod.iim.gate.core.cmd.handler.AbstractHandlerProxy;
+import xyz.izgnod.iim.gate.core.cmd.handler.EchoHandler;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
 @Component
 public class TcpHandlerProxy extends AbstractHandlerProxy {
@@ -19,8 +21,8 @@ public class TcpHandlerProxy extends AbstractHandlerProxy {
 //    private DefaultHandler defaultHandler;
 //    @Resource
 //    private HttpHandler httpHandler;
-//    @Resource
-//    private EchoHandler echoHandler;
+    @Resource
+    private EchoHandler echoHandler;
 //    @Resource
 //    private HeartbeatCmdHandler heartbeatCmdHandler;
 
@@ -36,6 +38,6 @@ public class TcpHandlerProxy extends AbstractHandlerProxy {
 //        super.register(GateCmdEnum.DEFAULT.getCmdId(), defaultHandler);
 //        super.register(GateCmdEnum.HEARTBEAT.getCmdId(), heartbeatCmdHandler);
 //        super.register(10, httpHandler);
-//        super.register(11, echoHandler);
+        super.register(11, echoHandler);
     }
 }

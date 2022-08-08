@@ -8,6 +8,9 @@ public class ServerProperties {
     private boolean benchmark;
     private int rateLimitPerSecond;
 
+    private int bossGroup;
+    private int workGroup;
+
     public int getPort() {
         return port;
     }
@@ -62,5 +65,21 @@ public class ServerProperties {
 
     public void setBenchmark(boolean benchmark) {
         this.benchmark = benchmark;
+    }
+
+    public int getBossGroup() {
+        return bossGroup;
+    }
+
+    public void setBossGroup(int bossGroup) {
+        this.bossGroup = bossGroup;
+    }
+
+    public int getWorkGroup() {
+        return workGroup;
+    }
+
+    public void setWorkGroup(int workGroup) {
+        this.workGroup = workGroup;
     }
 }

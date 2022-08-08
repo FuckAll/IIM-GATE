@@ -34,7 +34,7 @@ server:
 iim-gate-tcp:
   server:
     # 启动端口
-    port: 8900
+    port: 8901
     #可接受的最大包
     frameMaxLength: 8192
     #netty 读超时

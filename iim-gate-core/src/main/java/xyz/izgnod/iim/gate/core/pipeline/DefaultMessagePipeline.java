@@ -59,7 +59,6 @@ public class DefaultMessagePipeline implements MessagePipeline {
         }
     }
 
-
     /**
      * 向上传递事件
      *
@@ -67,7 +66,6 @@ public class DefaultMessagePipeline implements MessagePipeline {
      * @param e
      */
     private void sendUp(DefaultMessageHandler ctx, CmdEvent e) {
-
         try {
             ((MessageUpHandler) ctx.getHandler()).handleUp(ctx, e);
         } catch (Throwable t) {
@@ -86,7 +84,6 @@ public class DefaultMessagePipeline implements MessagePipeline {
         LOG.warn("pipeline notifyHandlerUpException,logId={}", e.getLogId(), t);
         ctx.endSendUp(e);
     }
-
 
     /**
      * 从尾巴开始传递的入口
@@ -109,7 +106,6 @@ public class DefaultMessagePipeline implements MessagePipeline {
      * @param e
      */
     private void sendDown(DefaultMessageHandler ctx, CmdEvent e) {
-
         try {
             ((MessageDownHandler) ctx.getHandler()).handleDown(ctx, e);
         } catch (Throwable t) {

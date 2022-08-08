@@ -31,16 +31,14 @@ public abstract class BaseCommonSimpleChannelUpstreamHandler extends SimpleChann
 
     private final ConcurrentMap<String, Long> map = new ConcurrentHashMap<>();
     protected Connector connector;
-    private final ServerProperties serverProperties = null;
+    private final ServerProperties serverProperties;
 
-    //
-//    public BaseCommonSimpleChannelUpstreamHandler(Connector connector, ServerProperties serverProperties) {
-//        this.connector = connector;
-//        this.serverProperties = serverProperties;
-//    }
-    public BaseCommonSimpleChannelUpstreamHandler() {
 
+    public BaseCommonSimpleChannelUpstreamHandler(Connector connector, ServerProperties serverProperties) {
+        this.connector = connector;
+        this.serverProperties = serverProperties;
     }
+
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {

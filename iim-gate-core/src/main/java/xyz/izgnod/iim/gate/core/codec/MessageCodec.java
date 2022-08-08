@@ -3,14 +3,19 @@ package xyz.izgnod.iim.gate.core.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import xyz.izgnod.iim.gate.core.connection.NettyTcpConnection;
 import xyz.izgnod.iim.gate.protocol.tcp.GateMessage;
 
 import java.util.List;
 
 public class MessageCodec extends ByteToMessageCodec<GateMessage> {
+    private static final Logger LOG = LoggerFactory.getLogger(NettyTcpConnection.class);
+
     @Override
     protected void encode(ChannelHandlerContext ctx, GateMessage msg, ByteBuf out) throws Exception {
-        out.setBytes(0, msg.toByteArray());
+        out.writeBytes(msg.toByteArray());
     }
 
     @Override

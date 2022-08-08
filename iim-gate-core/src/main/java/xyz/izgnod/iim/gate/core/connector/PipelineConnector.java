@@ -15,7 +15,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class PipelineConnector implements Connector {
-
     private static final Logger LOG = LoggerFactory.getLogger(PipelineConnector.class);
 
     private final MessagePipeline messagePipeline;
@@ -27,36 +26,24 @@ public class PipelineConnector implements Connector {
         this.executorService = executorService;
         this.sessionManager = sessionManager;
 
-        //每5分钟打印一次线程池信息
+        //every 5 minutes print thread pool status
         ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutor.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                LOG.info("executorService-info," + executorService.toString());
-            }
-        }, 5, 5, TimeUnit.MINUTES);
+        scheduledExecutor.scheduleAtFixedRate(() -> LOG.info("executorService-info," + executorService.toString()),
+                5, 5, TimeUnit.MINUTES);
     }
 
     @Override
     public void process(ConnectionEvent connectionEvent) {
-
         if (connectionEvent instanceof ConnectionStateEvent) {
-
             sessionManager.stateChange((ConnectionStateEvent) connectionEvent);
         } else if (connectionEvent instanceof CmdEvent) {
-            //提交线程池处理
-            executorService.execute(new Runnable() {
-                @Override
-                public void run() {
-
-                    try {
-                        messagePipeline.sendUp((CmdEvent) connectionEvent);
-                    } catch (Exception e) {
-                        LOG.error("", e);
-                    }
+            executorService.execute(() -> {
+                try {
+                    messagePipeline.sendUp((CmdEvent) connectionEvent);
+                } catch (Exception e) {
+                    LOG.error("", e);
                 }
             });
         }
     }
-
 }

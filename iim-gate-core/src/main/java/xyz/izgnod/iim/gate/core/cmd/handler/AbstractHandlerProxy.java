@@ -3,7 +3,6 @@ package xyz.izgnod.iim.gate.core.cmd.handler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xyz.izgnod.iim.gate.core.cmd.CmdEvent;
-import xyz.izgnod.iim.gate.core.cmd.GateCmdEnum;
 import xyz.izgnod.iim.gate.core.cmd.UpCmdEvent;
 import xyz.izgnod.iim.gate.protocol.tcp.GateMessage;
 import xyz.izgnod.iim.gate.protocol.tcp.MsgHeader;
@@ -38,11 +37,12 @@ public class AbstractHandlerProxy implements HandlerProxy {
                 LOG.info("handle message,logId={},threadPool delay {}ms", cmdEvent.getLogId(), System.currentTimeMillis() - cmdEvent.getStartTime());
                 CmdHandler cmdHandler = handlerMap.get(header.getCmdId());
                 if (cmdHandler != null) {
-                    //自己处理
+                    System.out.println("cmdHandler = " + cmdHandler);
                     cmdHandler.handleMessage(cmdEvent);
                 } else {
+                    LOG.info("cmdHandler is null");
                     // 不需要gate处理的命令，透传给logic
-                    handlerMap.get(GateCmdEnum.DEFAULT.getCmdId()).handleMessage(cmdEvent);
+//                    handlerMap.get(GateCmdEnum.DEFAULT.getCmdId()).handleMessage(cmdEvent);
                 }
             }
         } catch (Exception e) {

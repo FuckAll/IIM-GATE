@@ -3,10 +3,20 @@ package xyz.izgnod.iim.gate.tcp.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import xyz.izgnod.iim.gate.core.cmd.handler.HandlerProxy;
 import xyz.izgnod.iim.gate.core.component.ProxySelectorComponent;
 import xyz.izgnod.iim.gate.core.config.ServerProperties;
+import xyz.izgnod.iim.gate.core.connector.Connector;
+import xyz.izgnod.iim.gate.core.connector.PipelineConnector;
+import xyz.izgnod.iim.gate.core.pipeline.DefaultMessagePipeline;
+import xyz.izgnod.iim.gate.core.pipeline.MessagePipeline;
 import xyz.izgnod.iim.gate.core.session.DefaultSessionManager;
 import xyz.izgnod.iim.gate.core.session.SessionManager;
+import xyz.izgnod.iim.gate.core.task.GateThreadFactory;
+
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class BeanConfig {
@@ -48,7 +58,7 @@ public class BeanConfig {
      */
     @Bean
     public SessionManager sessionManager(ServerProperties serverProperties, ProxySelectorComponent proxySelectorComponent) {
-        return new DefaultSessionManager(serverProperties , proxySelectorComponent);
+        return new DefaultSessionManager(serverProperties, proxySelectorComponent);
     }
 //
 //    /**
@@ -95,41 +105,42 @@ public class BeanConfig {
 //    }
 
 
-//    /**
-//     * 配置处理消息的pipeline
-//     *
-//     * @param handlerProxy
-//     * @param traceMessageUpHandler
-//     * @return
-//     */
-//    @Bean
-//    public MessagePipeline messagePipeline(HandlerProxy handlerProxy, TraceMessageUpHandler traceMessageUpHandler, TraceMessageDownHandler traceMessageDownHandler, SessionManager sessionManager, PrometheusMeterRegistry registry, RedisTemplate redisTemplate, GateMetadataDto gateMetadataDto) {
-//
-//        DefaultMessagePipeline messagePipeline = new DefaultMessagePipeline(handlerProxy);
+    /**
+     * 配置处理消息的pipeline
+     *
+     * @param handlerProxy
+     * @param sessionManager
+     * @return
+     */
+    @Bean
+    public MessagePipeline messagePipeline(HandlerProxy handlerProxy, SessionManager sessionManager) {
+        DefaultMessagePipeline messagePipeline = new DefaultMessagePipeline(handlerProxy);
 //        messagePipeline.addLast("limit", new SentinelLimitMessageHandler());
-//        /**
-//         * 需要加密的serviceId，必须配置。
-//         */
+        /**
+         * 需要加密的serviceId，必须配置。
+         */
 //        Set<Integer> include = new HashSet<>();
 //        messagePipeline.addLast("traceUp", traceMessageUpHandler);
 //        messagePipeline.addLast("monitor", new MonitorPrometheusMessageHandler(registry));
 //        messagePipeline.addLast("traceDown", traceMessageDownHandler);
-//        return messagePipeline;
-//    }
-//
-//    /**
-//     * 配置处理消息事件的连接器
-//     *
-//     * @param messagePipeline
-//     * @param sessionManager
-//     * @return
-//     */
-//    @Bean
-//    public Connector connector(MessagePipeline messagePipeline, SessionManager sessionManager) {
-//        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(200, 200, 0, TimeUnit.SECONDS,
-//                new LinkedBlockingDeque<>(20000), new GateThreadFactory("TcpConnector", true), new GateRejectedHandler());
-//        return new PipelineConnector(messagePipeline, threadPoolExecutor, sessionManager);
-//    }
+        return messagePipeline;
+    }
+
+
+    /**
+     * 配置处理消息事件的连接器
+     *
+     * @param messagePipeline
+     * @param sessionManager  会话管理器
+     * @return
+     */
+    @Bean
+    public Connector connector(MessagePipeline messagePipeline, SessionManager sessionManager) {
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(200, 200,
+                0, TimeUnit.SECONDS, new LinkedBlockingDeque<>(20000),
+                new GateThreadFactory("TcpConnector", true), new ThreadPoolExecutor.CallerRunsPolicy());
+        return new PipelineConnector(messagePipeline, threadPoolExecutor, sessionManager);
+    }
 //
 //
 //    /**
