@@ -1,6 +1,6 @@
 package xyz.izgnod.iim.gate.core.logic.service;
 
-import xyz.izgnod.iim.gate.api.dto.GateUserDto;
+import xyz.izgnod.iim.api.gate.dto.GateUserDto;
 import xyz.izgnod.iim.gate.core.cmd.CmdEvent;
 import xyz.izgnod.iim.gate.core.session.Session;
 

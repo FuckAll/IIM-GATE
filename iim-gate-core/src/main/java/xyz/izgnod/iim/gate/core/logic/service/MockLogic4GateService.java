@@ -1,9 +1,9 @@
 package xyz.izgnod.iim.gate.core.logic.service;
 
-import xyz.izgnod.iim.gate.api.dto.GateMetadataDto;
-import xyz.izgnod.iim.gate.api.dto.GateUserDto;
-import xyz.izgnod.iim.gate.api.dto.LogicAuthResponse;
-import xyz.izgnod.iim.gate.api.service.Logic4GateService;
+import xyz.izgnod.iim.api.gate.dto.GateMetadataDto;
+import xyz.izgnod.iim.api.gate.dto.GateUserDto;
+import xyz.izgnod.iim.api.gate.dto.LogicAuthResponse;
+import xyz.izgnod.iim.api.gate.service.Logic4GateService;
 import xyz.izgnod.iim.gate.protocol.tcp.GateMessage;
 
 public class MockLogic4GateService implements Logic4GateService {

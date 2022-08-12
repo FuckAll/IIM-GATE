@@ -1,8 +1,8 @@
-package xyz.izgnod.iim.gate.api.service;
+package xyz.izgnod.iim.api.gate.service;
 
-import xyz.izgnod.iim.gate.api.dto.GateMetadataDto;
-import xyz.izgnod.iim.gate.api.dto.GateUserDto;
-import xyz.izgnod.iim.gate.api.dto.LogicAuthResponse;
+import xyz.izgnod.iim.api.gate.dto.GateMetadataDto;
+import xyz.izgnod.iim.api.gate.dto.GateUserDto;
+import xyz.izgnod.iim.api.gate.dto.LogicAuthResponse;
 import xyz.izgnod.iim.gate.protocol.tcp.GateMessage;
 
 /**

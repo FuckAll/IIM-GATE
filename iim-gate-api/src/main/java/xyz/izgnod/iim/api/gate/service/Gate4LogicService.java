@@ -1,7 +1,7 @@
-package xyz.izgnod.iim.gate.api.service;
+package xyz.izgnod.iim.api.gate.service;
 
 
-import xyz.izgnod.iim.gate.api.dto.GateUserDto;
+import xyz.izgnod.iim.api.gate.dto.GateUserDto;
 import xyz.izgnod.iim.gate.protocol.tcp.GateMessage;
 
 import java.util.List;
